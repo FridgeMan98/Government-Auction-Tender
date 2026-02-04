@@ -6,8 +6,9 @@ class Settings(BaseSettings):
     debug_mode: bool
 
     model_config = SettingsConfigDict(
-        env_file=".env.local",
+        env_file="app/.env.local",
         env_file_encoding="utf-8",
     )
 
 settings = Settings()
+print(f"DEBUG: Loaded DATABASE_URL: {settings.database_url}")

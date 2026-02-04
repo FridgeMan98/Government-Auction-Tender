@@ -3,9 +3,14 @@ from sqlalchemy.orm import sessionmaker, declarative_base, Session
 from .settings import settings
 
 
-SQLALCHEMY_database_url = settings.neon_url
-engine = create_engine(SQLALCHEMY_database_url)
-SessionLocal = sessionmaker(autocommit=False,autoflush=False,bind=engine)
+SQLALCHEMY_database_url = settings.database_url
+
+connect_args = {}
+if SQLALCHEMY_database_url.startswith("sqlite"):
+    connect_args = {"check_same_thread": False}
+
+engine = create_engine(SQLALCHEMY_database_url, connect_args=connect_args)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 def get_db():
@@ -14,7 +19,3 @@ def get_db():
         yield db
     finally:
         db.close()
-
-Base.metadata.create_all(engine)
-Session = sessionmaker(bind=engine)
-session = Session()
