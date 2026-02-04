@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.env.local
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+*.db
+*.sqlite3
+debug_output.txt
+generate_pdf_summary.py
+Project_Codebase_Summary.pdf
